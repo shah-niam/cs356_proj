@@ -1,0 +1,7 @@
+# Applied on top of SWE-agent's config/default.yaml (see setting.yaml: config_name).
+# Keeps only the last 10 command outputs in the prompt. Replacing history_processors also
+# drops default.yaml's Anthropic-only cache_control processor, which other APIs reject.
+agent:
+  history_processors:
+    - type: last_n_observations
+      n: 10

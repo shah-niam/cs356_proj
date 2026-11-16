@@ -17,7 +17,7 @@ import argparse
 import json
 from pathlib import Path
 
-from susvibes.core.agents.ports import SWEAgentPort
+from susvibes.core.agents.sweagent import SWEAgentPort
 from susvibes.core.utils import load_file, save_file
 from susvibes.env_specs import WORKSPACE_DIR_NAME
 
@@ -33,11 +33,13 @@ def run_infer(
     instance_ids: list = None,
 ) -> Path:
     setting = load_file(SETTING_PATH)
+    # A relative sweagent_dir is relative to setting.yaml, so the runner works from any cwd.
+    sweagent_dir = (SETTING_PATH.parent / setting["sweagent_dir"]).resolve()
     run_name = run_name or dataset_path.stem
-    output_dir = output_dir or (Path(setting["dir"]).resolve() / "trajectories" / "susvibes_eval" / run_name)
+    output_dir = output_dir or (sweagent_dir / "trajectories" / "susvibes_eval" / run_name)
     model = {**setting["model"], "name": model_name}
     port = SWEAgentPort.from_settings(
-        setting, run_name=run_name, model=model,
+        setting, run_name=run_name, model=model, sweagent_dir=sweagent_dir,
         output_dir=output_dir, num_workers=num_workers,
     )
 

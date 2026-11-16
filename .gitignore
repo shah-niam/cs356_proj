@@ -35,3 +35,8 @@ results/
 .claude/
 CLAUDE.md
 /docs/
+
+# SWE-agent checkout created by evaluation_harness/swe_agent/setup_sweagent.sh
+/evaluation_harness/SWE-agent/
+ds.env
+/evaluation_harness/swe_agent/batches/

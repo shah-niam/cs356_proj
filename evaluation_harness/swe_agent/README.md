@@ -15,6 +15,12 @@ format. The dataset's `problem_statement` is used as-is.
 - **`setting.yaml`** - Run configuration (SWE-agent config(s), conda env, workers, model limits).
 - **`expert_instances.yaml`** - Example of the SWE-agent instances file `run_infer.py` builds.
 - **`convert.py`** - Converts SWE-agent `.traj` output into the standard format (OpenAI messages).
+- **`setup_sweagent.sh`** - Clones SWE-agent v1.1.0, creates its conda env, and applies `sweagent_overrides/`.
+- **`run_all.sh`** - Unattended run: agent phase, scoring, power-off.
+- **`tally_scores.py`** - Pass rates from the scoring reports saved so far.
+- **`make_batches.py`** - Splits the tasks into seeded, fixed-size batches under `batches/` (git-ignored).
+
+For the full AWS + DeepSeek setup, see [`DEEPSEEK_SETUP.md`](DEEPSEEK_SETUP.md).
 
 ## Usage
 
