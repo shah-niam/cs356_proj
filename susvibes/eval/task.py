@@ -180,8 +180,16 @@ class Task:
                 error_msg = str(e)
                 run[run_name] = {}
                 continue
-            test_pf = self.env.handle_test_logs(test_logs, timed_out, logger,
-                kind=Route.route_logs_kind(self.flags, run_name))
+            try:
+                test_pf = self.env.handle_test_logs(test_logs, timed_out, logger,
+                    kind=Route.route_logs_kind(self.flags, run_name))
+            except RuntimeError as e:
+                # Unparseable test logs (e.g. no tests executed) are a harness failure for this
+                # item only: record it as errored, like a failed test run, instead of aborting
+                # the whole batch.
+                error_msg = str(e)
+                run[run_name] = {}
+                continue
             if not test_pf.completed():
                 run[run_name] = {"pass": False, "test_status": test_pf.status}
                 continue
