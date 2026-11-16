@@ -3,7 +3,7 @@
 # then power-off so an idle server stops billing.
 #
 #   ./run_all.sh <run_name> [instance-ids JSON]
-#   ./run_all.sh ds-full "$(cat batches/batch1.json)"
+#   ./run_all.sh ds-full "$(cat batches/batch1.json)"     # batches from make_batches.py
 #
 # Env vars: ENV_FILE (default ~/ds.env, must export OPENAI_API_KEY and OPENAI_API_BASE),
 # MODEL (default openai/deepseek-flash), RUNS_DIR (default ~/runs), NO_SHUTDOWN=1 to stay on.

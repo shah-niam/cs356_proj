@@ -1,7 +1,7 @@
 # Running SusVibes with SWE-agent + DeepSeek on AWS
 
 How the `ds-full` runs were set up: SWE-agent v1.1.0 driving DeepSeek `deepseek-flash`
-(V4.1-Flash-1017) over the 186 SusVibes tasks, in two fixed batches, on one EC2 instance.
+(V4.1-Flash-1017) over the 186 SusVibes tasks, in batches, on one EC2 instance.
 
 ## What differs from stock SusVibes / SWE-agent
 
@@ -62,12 +62,14 @@ should list `deepseek-flash`.
 
 ## 4. Run
 
-The 186 tasks are split into `batches/batch1.json` (87) and `batches/batch2.json` (99), a fixed
-`random.Random(42)` shuffle of the dataset order. Both batches use the run name `ds-full`, so their
-outputs land together and scoring reuses earlier reports.
+Split the 186 tasks into batches sized to what your machine can finish in one sitting. The split is
+a seeded shuffle, so it is reproducible, and `batches/` is git-ignored. The original `ds-full` runs
+used `--size 87,99`. Run every batch under the same run name: outputs land together, finished tasks
+are skipped, and scoring reuses earlier reports.
 
 ```bash
 cd ~/susvibes/evaluation_harness/swe_agent
+python make_batches.py --size 50          # batches/batch1.json ... batch4.json
 # one-task smoke test, server stays on
 NO_SHUTDOWN=1 ./run_all.sh ds-smoke '["psf__requests_74ea7cf7a6a27a4eeb2ae24e162bcc942a6706d5"]'
 # a batch, in the background; the server powers off when it finishes

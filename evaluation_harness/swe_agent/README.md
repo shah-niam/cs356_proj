@@ -18,7 +18,7 @@ format. The dataset's `problem_statement` is used as-is.
 - **`setup_sweagent.sh`** - Clones SWE-agent v1.1.0, creates its conda env, and applies `sweagent_overrides/`.
 - **`run_all.sh`** - Unattended run: agent phase, scoring, power-off.
 - **`tally_scores.py`** - Pass rates from the scoring reports saved so far.
-- **`batches/`** - The fixed 87/99 task split used for the `ds-full` runs.
+- **`make_batches.py`** - Splits the tasks into seeded, fixed-size batches under `batches/` (git-ignored).
 
 For the full AWS + DeepSeek setup, see [`DEEPSEEK_SETUP.md`](DEEPSEEK_SETUP.md).
 
